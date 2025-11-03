@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChileTour - Recomendaciones Turísticas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-mountain"></i>
+                <span>ChileTour</span>
+            </div>
+            <div class="nav-menu">
+                <button id="loginBtn" class="btn btn-outline">Iniciar Sesión</button>
+                <button id="registerBtn" class="btn btn-primary">Registrarse</button>
+                <button id="myResultsBtn" class="btn btn-outline" style="display: none;">
+                    <i class="fas fa-history"></i>
+                    Mis Resultados
+                </button>
+                <button id="logoutBtn" class="btn btn-outline" style="display: none;">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome Section -->
+        <section id="welcomeSection" class="welcome-section">
+            <div class="container">
+                <div class="hero">
+                    <h1>Descubre Chile</h1>
+                    <p>Encuentra tu destino perfecto con nuestro quiz personalizado</p>
+                    <button id="startQuizBtn" class="btn btn-primary btn-large">
+                        <i class="fas fa-play"></i>
+                        Comenzar Quiz
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Iniciar Sesión</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Contraseña:</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Iniciar Sesión</button>
+                </form>
+                <p class="auth-switch">
+                    ¿No tienes cuenta? <a href="#" id="switchToRegister">Regístrate aquí</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div id="registerModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Registrarse</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerName">Nombre:</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email:</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Contraseña:</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Registrarse</button>
+                </form>
+                <p class="auth-switch">
+                    ¿Ya tienes cuenta? <a href="#" id="switchToLogin">Inicia sesión aquí</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <section id="quizSection" class="quiz-section" style="display: none;">
+            <div class="container">
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <h2>Quiz de Preferencias de Viaje</h2>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <p id="questionCounter">Pregunta 1 de 5</p>
+                    </div>
+                    
+                    <div class="quiz-content">
+                        <div id="questionContainer" class="question-container">
+                            <!-- Questions will be dynamically loaded here -->
+                        </div>
+                        
+                        <div class="quiz-navigation">
+                            <button id="prevBtn" class="btn btn-outline" disabled>
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button id="nextBtn" class="btn btn-primary">
+                                Siguiente
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button id="submitQuizBtn" class="btn btn-success" style="display: none;">
+                                <i class="fas fa-check"></i>
+                                Ver Recomendaciones
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section" style="display: none;">
+            <div class="container">
+                <div class="results-container">
+                    <h2>Tus Recomendaciones</h2>
+                    <div id="recommendationsContainer" class="recommendations-grid">
+                        <!-- Recommendations will be dynamically loaded here -->
+                    </div>
+                    <div class="results-actions">
+                        <button id="retakeQuizBtn" class="btn btn-outline">
+                            <i class="fas fa-redo"></i>
+                            Volver a Hacer Quiz
+                        </button>
+                        <button id="saveResultsBtn" class="btn btn-primary" style="display: none;">
+                            <i class="fas fa-save"></i>
+                            Guardar Resultados
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Results Section -->
+        <section id="myResultsSection" class="my-results-section" style="display: none;">
+            <div class="container">
+                <div class="my-results-container">
+                    <div class="my-results-header">
+                        <h2><i class="fas fa-history"></i> Mis Resultados</h2>
+                        <p>Historial de tus quizzes y recomendaciones</p>
+                    </div>
+                    
+                    <div id="resultsHistoryContainer" class="results-history">
+                        <!-- Results history will be loaded here -->
+                    </div>
+                    
+                    <div class="my-results-actions">
+                        <button id="backToWelcomeBtn" class="btn btn-outline">
+                            <i class="fas fa-home"></i>
+                            Volver al Inicio
+                        </button>
+                        <button id="clearHistoryBtn" class="btn btn-danger" style="display: none;">
+                            <i class="fas fa-trash"></i>
+                            Limpiar Historial
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ChileTour - Descubre las maravillas de Chile</p>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Cargando recomendaciones...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
